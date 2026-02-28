@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Found Item</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Report Found Item</h2>
+
+    <form action="/report-found" method="POST">
+        <input type="text" name="title" placeholder="Item Name" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <textarea name="description" placeholder="Description" required></textarea>
+        <input type="text" name="location" placeholder="Found Location" required>
+        <input type="date" name="item_date" required>
+
+        <button type="submit">Submit Found Item</button>
+    </form>
+
+    <p><a href="/">Back</a></p>
+</div>
+</body>
+</html>

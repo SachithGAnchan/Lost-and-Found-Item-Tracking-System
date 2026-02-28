@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Lost Item</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Report Lost Item</h2>
+
+    <form action="/report-lost" method="POST">
+        <input type="text" name="title" placeholder="Item Name" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <textarea name="description" placeholder="Description" required></textarea>
+        <input type="text" name="location" placeholder="Last Seen Location" required>
+        <input type="date" name="item_date" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

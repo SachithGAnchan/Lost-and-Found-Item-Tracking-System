@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Welcome, {{ session.name }}</h2>
+
+    <p>Please choose an action:</p>
+
+    <a href="/lost">
+        <button>Report Lost Item</button>
+    </a>
+
+    <br><br>
+
+    <a href="/found">
+        <button>Report Found Item</button>
+    </a>
+
+    <br><br>
+
+    <a href="/logout">Logout</a>
+</div>
+
+</body>
+</html>

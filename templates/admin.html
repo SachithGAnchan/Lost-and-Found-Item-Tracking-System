@@ -1,0 +1,9 @@
+<h2>Admin Panel – Found Items</h2>
+
+{% for item in found_items %}
+<div>
+    <p><b>{{ item.title }}</b> - {{ item.location }}</p>
+    <a href="/admin/match/{{ item.found_id }}">View Matches</a>
+</div>
+<hr>
+{% endfor %}
