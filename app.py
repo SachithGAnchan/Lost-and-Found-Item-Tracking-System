@@ -132,18 +132,23 @@ def found_page():
         return redirect("/login")
     return render_template("report_found.html")
 
+#-----------Admin Panlel--------#
 @app.route("/admin")
 def admin_panel():
     if "user_id" not in session or session.get("role") != "admin":
-        return "Unauthorized"
+        return redirect("/")
 
-    cursor.execute("""
-        SELECT * FROM found_items
-        WHERE matched_lost_id IS NULL
-    """)
+    cursor.execute("SELECT * FROM found_items")
     found_items = cursor.fetchall()
 
-    return render_template("admin.html", found_items=found_items)
+    cursor.execute("SELECT * FROM lost_items")
+    lost_items = cursor.fetchall()
+
+    return render_template(
+        "admin.html",
+        found_items=found_items,
+        lost_items=lost_items
+    )
 
 @app.route("/admin/match/<int:found_id>")
 def match_found(found_id):
@@ -155,29 +160,60 @@ def match_found(found_id):
 
     cursor.execute("""
         SELECT * FROM lost_items
-        WHERE category=%s AND location=%s AND status='Open'
-    """, (found["category"], found["location"]))
+        WHERE status='Open'
+    """)
 
     lost_items = cursor.fetchall()
 
     return render_template("match.html", found=found, lost_items=lost_items)
 
-@app.route("/admin/approve/<int:found_id>/<int:lost_id>")
-def approve_match(found_id, lost_id):
+@app.route("/admin/approve", methods=["POST"])
+def approve_match():
     if "user_id" not in session or session.get("role") != "admin":
-        return "Unauthorized"
+        return redirect("/")
+
+    found_id = request.form["found_id"]
+    lost_id = request.form["lost_id"]
+
     cursor.execute(
         "UPDATE found_items SET matched_lost_id=%s WHERE found_id=%s",
         (lost_id, found_id)
     )
-
     cursor.execute(
         "UPDATE lost_items SET status='Returned' WHERE lost_id=%s",
         (lost_id,)
     )
-
     db.commit()
+
     return redirect("/admin")
+
+#---------------pending status------------------#
+@app.route("/status")
+def status_page():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    user_id = session["user_id"]
+
+    cursor.execute("""
+        SELECT * FROM lost_items
+        WHERE user_id=%s
+        ORDER BY lost_date DESC
+    """, (user_id,))
+    lost_items = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT * FROM found_items
+        WHERE reported_by=%s
+        ORDER BY found_date DESC
+    """, (user_id,))
+    found_items = cursor.fetchall()
+
+    return render_template(
+        "status.html",
+        lost_items=lost_items,
+        found_items=found_items
+    )
 
 
 if __name__ == "__main__":

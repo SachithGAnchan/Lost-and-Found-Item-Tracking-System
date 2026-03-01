@@ -1,43 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>Status</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
 <div class="container admin-container">
-    <h2>Admin Panel</h2>
+    <h2>My Status</h2>
 
-    <!-- FOUND ITEMS -->
-    <h3>Found Items</h3>
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Location</th>
-            <th>Action</th>
-        </tr>
-        {% for item in found_items %}
-        <tr>
-            <td>{{ item.title }}</td>
-            <td>{{ item.category }}</td>
-            <td>{{ item.location }}</td>
-            <td>
-                {% if not item.matched_lost_id %}
-                    <a class="btn" href="/admin/match/{{ item.found_id }}">Match</a>
-                {% else %}
-                    <span class="status success">Matched</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <!-- ================= LOST ITEMS ================= -->
+    <h3>My Lost Items</h3>
 
-    <br>
-
-    <!-- LOST ITEMS -->
-    <h3>Lost Items</h3>
+    {% if lost_items %}
     <table>
         <tr>
             <th>Title</th>
@@ -45,6 +20,7 @@
             <th>Location</th>
             <th>Status</th>
         </tr>
+
         {% for item in lost_items %}
         <tr>
             <td>{{ item.title }}</td>
@@ -54,12 +30,48 @@
                 {% if item.status == "Returned" %}
                     <span class="status success">Returned</span>
                 {% else %}
-                    <span class="status pending">Open</span>
+                    <span class="status pending">Pending</span>
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+        <p>No lost items reported.</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- ================= FOUND ITEMS ================= -->
+    <h3>My Found Items</h3>
+
+    {% if found_items %}
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Status</th>
+        </tr>
+
+        {% for item in found_items %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.location }}</td>
+            <td>
+                {% if item.matched_lost_id %}
+                    <span class="status success">Matched</span>
+                {% else %}
+                    <span class="status pending">Pending</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No found items reported.</p>
+    {% endif %}
 
     <br>
     <a href="/" class="btn back-btn">Back to Dashboard</a>

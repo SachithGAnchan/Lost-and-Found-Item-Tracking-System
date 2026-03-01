@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Match Items</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container admin-container">
+    <h2>Match Found Item</h2>
+
+    <!-- FOUND ITEM DETAILS -->
+    <div class="card">
+        <h3>Found Item</h3>
+        <p><strong>Title:</strong> {{ found.title }}</p>
+        <p><strong>Category:</strong> {{ found.category }}</p>
+        <p><strong>Location:</strong> {{ found.location }}</p>
+        <p><strong>Description:</strong> {{ found.description }}</p>
+    </div>
+
+    <hr>
+
+    <!-- LOST ITEMS LIST -->
+    <h3>Possible Lost Items</h3>
+
+    {% if lost_items %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+
+            {% for item in lost_items %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>
+        <form method="POST" action="/admin/approve" style="display:inline;">
+        <input type="hidden" name="found_id" value="{{ found.found_id }}">
+        <input type="hidden" name="lost_id" value="{{ item.lost_id }}">
+        <button type="submit" class="btn">Approve Match</button>
+        </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No matching lost items found.</p>
+    {% endif %}
+
+    <br>
+    <a href="/admin" class="btn back-btn">Back to Admin Panel</a>
+</div>
+
+</body>
+</html>

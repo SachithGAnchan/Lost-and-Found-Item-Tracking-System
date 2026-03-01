@@ -4,12 +4,37 @@ body {
 }
 
 .container {
-    width: 350px;
+    width: 400px;
     margin: 100px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.container ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.container ul li {
+    margin: 12px 0;
+}
+
+.container ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.container ul li a:hover {
+    background: #0056b3;
 }
 
 h2 {
@@ -44,4 +69,73 @@ p {
 a {
     text-decoration: none;
     color: #007bff;
+}
+.admin-btn {
+    background: #dc3545 !important; /* red */
+}
+
+.admin-btn:hover {
+    background: #a71d2a !important;
+}
+
+/* Admin container */
+.admin-container {
+    width: 90%;
+    max-width: 900px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #f4f4f4;
+}
+
+/* Buttons */
+.btn {
+    padding: 6px 12px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* Status labels */
+.status {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.status.success {
+    background: #28a745;
+}
+
+.status.pending {
+    background: #ffc107;
+    color: black;
+}
+
+.back-btn {
+    background: #6c757d;
+}
+
+.back-btn:hover {
+    background: #495057;
 }
